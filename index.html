@@ -536,9 +536,28 @@ text-align: left;
     <audio id="magicSound" preload="auto">
         <source src="https://assets.mixkit.co/sfx/preview/mixkit-magic-sparkle-300.mp3" type="audio/mpeg">
     </audio>
-    <audio id="backgroundMusic" loop preload="auto">
+    <audio id="backgroundMusics" loop preload="auto">
         <source src="mery.mp3" type="audio/mpeg">
     </audio>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const music = document.getElementById("backgroundMusics");
+    music.volume = 0.3;
+
+    const unlockAudio = () => {
+        music.play();
+        document.removeEventListener("click", unlockAudio);
+        document.removeEventListener("touchstart", unlockAudio);
+    };
+
+    // desktop intenta
+    music.play().catch(() => {
+        // móvil espera interacción
+        document.addEventListener("click", unlockAudio, { once: true });
+        document.addEventListener("touchstart", unlockAudio, { once: true });
+    });
+});
+</script>
 
     <script>
         // ========== CONFIGURACIÓN ==========
